@@ -106,12 +106,18 @@ serialPort = new SerialPort(portName, {
 serialPort.on("open", function () {
   console.log('open');
 
-  db.find({}, function (err, docs) {
+  db.find({}).sort({ number: 1, _id: 0 }).exec(function (err, docs) {
   // docs is an array containing documents Mars, Earth, Jupiter
   // If no document is found, docs is equal to []
-  console.log(JSON.stringify(docs));
-
-
+  var chartData = JSON.stringify(docs);
+//this gets the numbers from the DB direct.
+  var keys = Object.keys(docs);
+for(var i=0;i<keys.length;i++){
+    var key = keys[i];
+    console.log(docs[key].number);
+}
+/**
+// Adding chartjs to graph data
   var ctx = document.getElementById("myChart");
   var Chart = require('chart.js');
 var myChart = new Chart(ctx, {
@@ -150,6 +156,8 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+**/
 
 
 });
