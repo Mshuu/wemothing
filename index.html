@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<link rel="stylesheet" href="index.css">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Hello World!</title>
+  </head>
+  <body>
+		<div class="container">
+			<header id='header1'>
+				<h1 id="headertext">Wemo Power Reading Tool</h1>
+			</header>
+			<div id="desc">
+				<p id ="desctext" >Select your serial port below </p>
+			</div>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+
+<div id = "SerialPortList">
+</div>
+
+<div id = "discBtn">
+	<button type="button" width:"250px" class="btn btn-success btn-lg button" onclick="Disconnect();">Disconnect</a>
+</div>
+
+<div id = "PowerReading">
+	<p id="powerText">0</p>
+</div>
+
+
+  </body>
+</div>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  var remote =  require('electron').remote // Load remote compnent that contains the dialog dependency
+var dialog = remote.dialog;
+var fs = require('fs');
+var serialPort;
+
+
+
+function UsePort(portName) {
+	var serialContainer = document.getElementById('SerialPortList');
+	var discBtn = document.getElementById('discBtn');
+	var desc = document.getElementById('desctext');
+	var powerReading = document.getElementById('PowerReading');
+
+	desc.innerText = "Using: " + portName;
+	discBtn.style.display='block';
+	serialContainer.style.display = 'none';
+	powerReading.style.display=  'block';
+	ListenSerial(portName);
+
+
+}
+
+function ListenSerial(portName){
+
+	const serialport = require('serialport')
+	var powerText = document.getElementById('powerText');
+
+var SerialPort = serialport.SerialPort;
+
+serialPort = new SerialPort(portName, {
+  baudrate: 9600,
+	parser: serialport.parsers.byteLength("30")
+
+});
+
+serialPort.on("open", function () {
+  console.log('open');
+  serialPort.on('data', function(data) {
+		console.log(data.toString('hex'));
+	//	powerText.innerText = data.toString('hex');
+	var hexstring = data.toString('hex');
+	var res = hexstring.substr(34, 2);
+	var res2 = hexstring.substr(36, 2);
+	var res3 = hexstring.substr(38, 2);
+
+	var resmerge = res3 + res2 + res;
+var intsave = parseInt(resmerge, 16);
+
+	var final = intsave /4;
+
+	// divide it by four
+
+	powerText.innerText = final;
+
+
+  });
+});
+}
+function Disconnect() {
+	serialPort.close(function (err) {
+	    console.log('port closed', err);
+			var serialContainer = document.getElementById('SerialPortList');
+			var discBtn = document.getElementById('discBtn');
+			var desc = document.getElementById('desctext');
+			var powerReading = document.getElementById('PowerReading');
+
+
+			desc.innerText = "Select your serial port below";
+
+			serialContainer.style.display = 'block';
+			discBtn.style.display = 'none';
+			powerReading.style.display = 'none';
+
+	});
+}
+function doFunction() {
+  let content = "Some text to save into the file";
+
+// You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
+dialog.showSaveDialog((fileName) => {
+    if (fileName === undefined){
+        console.log("You didn't save the file");
+        return;
+    }
+
+    // fileName is a string that contains the path and filename created in the save file dialog.
+    fs.writeFile(fileName, content, (err) => {
+        if(err){
+            alert("An error ocurred creating the file "+ err.message)
+        }
+
+        alert("The file has been succesfully saved");
+    });
+});
+}
+
+  </script>
+</html>

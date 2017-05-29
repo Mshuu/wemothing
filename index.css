@@ -1,0 +1,77 @@
+html,
+body {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+
+}
+
+header {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: -250px;
+	margin-left: -250px;
+	text-align: center;
+}
+#desc {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: -100px;
+	margin-left: -250px;
+	text-align: center;
+}
+#SerialPortList {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: -60px;
+	margin-left: -250px;
+	text-align: center;
+}
+#discBtn {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: 150px;
+	margin-left: -250px;
+	text-align: center;
+	display: none;
+}
+
+#PowerReading {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: -60px;
+	margin-left: -250px;
+	text-align: center;
+	display: none;
+}
+
+
+.button {
+	width: 200px
+}
+
+
+header h1 {
+	font-size: 60px;
+	font-weight: 100;
+	margin: 0;
+	padding: 0;
+}
