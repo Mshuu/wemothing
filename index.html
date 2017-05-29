@@ -108,7 +108,7 @@ var intsave = parseInt(resmerge, 16);
 	// divide it by four
 
 	powerText.innerText = final;
-  serialPort.pause();
+
   var doc = { number: final};
 
   db.insert(doc, function (err, newDoc) {   // Callback is optional
@@ -128,7 +128,7 @@ var intsave = parseInt(resmerge, 16);
       console.log(powerLabel);
 
   }
-
+/**
   var ctx = document.getElementById("myChart");
   var Chart = require('chart.js');
 var myChart = new Chart(ctx, {
@@ -171,6 +171,7 @@ var myChart = new Chart(ctx, {
     }
 });
   });
+  **/
 
 
 /**
@@ -214,9 +215,8 @@ var myChart = new Chart(ctx, {
     }
 });
 **/
-
+});
   });
-  serialPort.pause();
 
 });
 

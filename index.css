@@ -60,6 +60,8 @@ header {
 	margin-top: -60px;
 	margin-left: -250px;
 	text-align: center;
+	font-size: 32pt;
+	
 	display: none;
 }
 #ChartPosition {
