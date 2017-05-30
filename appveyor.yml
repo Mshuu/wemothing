@@ -8,7 +8,7 @@ cache:
   - '%APPDATA%\npm-cache'
   - '%USERPROFILE%\.electron'
 artifacts: 
-  - path: deploy
+  - path: dist
     name: wemo
 init:
   - git config --global core.autocrlf input
