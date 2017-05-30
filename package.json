@@ -6,8 +6,8 @@
   "scripts": {
     "start": "electron .",
     "install": "electron-rebuild",
-  "pack": "build --dir",
-  "dist": "build"
+    "pack": "build --dir",
+    "dist": "build"
   },
   "repository": {
     "type": "git",
