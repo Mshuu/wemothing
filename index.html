@@ -29,9 +29,6 @@
 <div id = "PowerReading">
 	<p id="powerText">0</p>
 </div>
-<div id = "ChartPosition">
-  <canvas id="myChart" width="400" height="400"></canvas>
-</div>
 
 
   </body>
@@ -54,11 +51,14 @@ function UsePort(portName) {
 	var discBtn = document.getElementById('discBtn');
 	var desc = document.getElementById('desctext');
 	var powerReading = document.getElementById('PowerReading');
+	var expBtn = document.getElementById('expBtn');
 
 	desc.innerText = "Using: " + portName;
 	discBtn.style.display='block';
 	serialContainer.style.display = 'none';
 	powerReading.style.display=  'block';
+	expBtn.style.display = 'block';
+
 	ListenSerial(portName);
 
 
@@ -104,9 +104,15 @@ serialPort.on("open", function () {
 	var res3 = hexstring.substr(38, 2);
 
 	var resmerge = res3 + res2 + res;
+
 var intsave = parseInt(resmerge, 16);
 
+
 	var final = intsave /4;
+
+	if (final > 4000000) {
+		final = "<0";
+	}
 
 	// divide it by four
 
@@ -127,8 +133,8 @@ var intsave = parseInt(resmerge, 16);
       var key = keys[i];
       powerARR.push(docs[key].number);
       powerLabel.push(i);
-      console.log(powerARR);
-      console.log(powerLabel);
+    //  console.log(powerARR);
+    //  console.log(powerLabel);
 
   }
 /**
@@ -234,6 +240,8 @@ function Disconnect() {
 			var discBtn = document.getElementById('discBtn');
 			var desc = document.getElementById('desctext');
 			var powerReading = document.getElementById('PowerReading');
+			var expBtn = document.getElementById('expBtn');
+
 
 
 			desc.innerText = "Select your serial port below";
@@ -241,6 +249,7 @@ function Disconnect() {
 			serialContainer.style.display = 'block';
 			discBtn.style.display = 'none';
 			powerReading.style.display = 'none';
+			expBtn.style.display = 'none';
 
 	});
 }

@@ -54,25 +54,27 @@ header {
 #PowerReading {
 	position: absolute;
 	width: 500px;
-	height: 250px;
+	height: 40px;
 	top: 50%;
 	left: 50%;
 	margin-top: -60px;
 	margin-left: -250px;
 	text-align: center;
 	font-size: 32pt;
-	
+
 	display: none;
 }
-#ChartPosition {
+
+#expBtn {
 	position: absolute;
 	width: 500px;
-	height: 250px;
+	height: 40px;
 	top: 50%;
 	left: 50%;
 	margin-top: 0px;
 	margin-left: -250px;
 	text-align: center;
+	display : none;
 }
 
 
