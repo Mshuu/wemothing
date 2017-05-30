@@ -22,6 +22,9 @@
 <div id = "discBtn">
 	<button type="button" width:"250px" class="btn btn-success btn-lg button" onclick="Disconnect();">Disconnect</a>
 </div>
+<div id ="expBtn">
+  <button type="button" width:"250px" class="btn btn-success btn-lg button" onclick="doFunction();">Export to File</a>
+</div>
 
 <div id = "PowerReading">
 	<p id="powerText">0</p>
@@ -242,7 +245,7 @@ function Disconnect() {
 	});
 }
 function doFunction() {
-  let content = "Some text to save into the file";
+  let content = powerARR;
 
 // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
 dialog.showSaveDialog((fileName) => {
