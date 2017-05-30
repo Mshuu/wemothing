@@ -85,20 +85,19 @@ serialPort = new SerialPort(portName, {
 
 });
 
-serialPort.on("open", function () {
-  console.log('open');
-
-
-
-
-
-
-});
-
   serialPort.on('data', function(data) {
-		console.log(data.toString('hex'));
+		var hexstring = data.toString('hex');
+
 	//	powerText.innerText = data.toString('hex');
-	var hexstring = data.toString('hex');
+
+	if ((hexstring.substr(0,4)) !=  "ae1e") {
+		console.log('Bytes did not match, please disconnect and try again.');
+
+
+
+	} else {
+		console.log(data.toString('hex'));
+
 	var res = hexstring.substr(34, 2);
 	var res2 = hexstring.substr(36, 2);
 	var res3 = hexstring.substr(38, 2);
@@ -137,96 +136,10 @@ var intsave = parseInt(resmerge, 16);
     //  console.log(powerLabel);
 
   }
-/**
-  var ctx = document.getElementById("myChart");
-  var Chart = require('chart.js');
-var myChart = new Chart(ctx, {
-  type: 'line',
-    data: {
-      labels: powerLabel,
-        datasets: [{
-            label: 'Watts',
-            data: powerARR,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        },
-        animation: {
-          duration:0
-        }
-    }
+
 });
   });
-  **/
-
-
-/**
-// Adding chartjs to graph data
-  var ctx = document.getElementById("myChart");
-  var Chart = require('chart.js');
-var myChart = new Chart(ctx, {
-  type: 'line',
-    data: {
-      labels: powerLabel,
-        datasets: [{
-            label: 'Watts',
-            data: powerARR,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-**/
-});
-  });
-
+}
 });
 
 }
