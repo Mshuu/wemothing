@@ -23,20 +23,15 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1",
-    "electron-rebuild": "^1.4.0"
+    "electron-builder": "^18.1.0",
+    "electron-rebuild": "^1.5.11"
   },
-  "devDependencies" : {
-	    "electron-builder": "^18.1.0"
-	},
-"build": {
-  "appId": "your.id",
-  "mac": {
-    "category": "your.app.category.type"
-  }
-},
-
-
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "chart.js": "^2.6.0",
