@@ -7,7 +7,9 @@ cache:
   - node_modules
   - '%APPDATA%\npm-cache'
   - '%USERPROFILE%\.electron'
-
+artifacts: 
+  - path: deploy\*.zip
+    name: wemo
 init:
   - git config --global core.autocrlf input
 
