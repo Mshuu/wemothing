@@ -1,11 +1,13 @@
 {
-  "name": "electron-serialport",
+  "name": "wemo-power",
   "version": "1.0.1",
   "description": "A minimal Electron application with node serialport",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "install": "electron-rebuild"
+    "install": "electron-rebuild",
+  "pack": "build --dir",
+  "dist": "build"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,17 @@
     "electron": "^1.4.1",
     "electron-rebuild": "^1.4.0"
   },
+  "devDependencies" : {
+	    "electron-builder": "^18.1.0"
+	},
+"build": {
+  "appId": "your.id",
+  "mac": {
+    "category": "your.app.category.type"
+  }
+},
+
+
   "dependencies": {
     "bootstrap": "^3.3.7",
     "chart.js": "^2.6.0",
