@@ -43,6 +43,9 @@ var fs = require('fs');
 var serialPort;
 var powerARR = [];
 var powerLabel = [];
+var content = [];
+var Datastore = require('nedb')
+, db = new Datastore();
 
 
 
@@ -67,8 +70,7 @@ function UsePort(portName) {
 function ListenSerial(portName){
 
 
-  var Datastore = require('nedb')
-  , db = new Datastore();
+
 
 
 
@@ -110,7 +112,7 @@ var intsave = parseInt(resmerge, 16);
 	var final = intsave /4;
 
 	if (final > 4000000) {
-		final = "<0";
+		final = 0;
 	}
 
 	// divide it by four
@@ -122,22 +124,6 @@ var intsave = parseInt(resmerge, 16);
   db.insert(doc, function (err, newDoc) {   // Callback is optional
     // newDoc is the newly inserted document, including its _id
     // newDoc has no key called notToBeSaved since its value was undefined
-    db.find({}).sort({ number: 1, _id: 0 }).exec(function (err, docs) {
-    // docs is an array containing documents Mars, Earth, Jupiter
-    // If no document is found, docs is equal to []
-    var chartData = JSON.stringify(docs);
-  //this gets the numbers from the DB direct.
-    var keys = Object.keys(docs);
-  for(var i=0;i<keys.length;i++){
-      var key = keys[i];
-      powerARR.push(docs[key].number);
-      powerLabel.push(i);
-    //  console.log(powerARR);
-    //  console.log(powerLabel);
-
-  }
-
-});
   });
 }
 });
@@ -167,7 +153,43 @@ function Disconnect() {
 	});
 }
 function doFunction() {
-  let content = powerARR;
+
+serialPort.close(function (err) {
+	db.find({}).sort({ number: 1, _id: 0 }).exec(function (err, docs) {
+	// docs is an array containing documents Mars, Earth, Jupiter
+	// If no document is found, docs is equal to []
+//this gets the numbers from the DB direct.
+	var keys = Object.keys(docs);
+for(var i=0;i<keys.length;i++){
+		var key = keys[i];
+		powerARR.push(docs[key].number);
+		powerLabel.push(i);
+	//  console.log(powerARR);
+	//  console.log(powerLabel);
+
+}
+
+content = powerARR;
+
+console.log('port closed', err);
+var serialContainer = document.getElementById('SerialPortList');
+var discBtn = document.getElementById('discBtn');
+var desc = document.getElementById('desctext');
+var powerReading = document.getElementById('PowerReading');
+var expBtn = document.getElementById('expBtn');
+
+
+
+desc.innerText = "Select your serial port below";
+
+serialContainer.style.display = 'block';
+discBtn.style.display = 'none';
+powerReading.style.display = 'none';
+expBtn.style.display = 'none';
+});
+});
+
+
 
 // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
 dialog.showSaveDialog((fileName) => {
