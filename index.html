@@ -135,6 +135,9 @@ var intsave = parseInt(resmerge, 16);
 function Disconnect() {
 	serialPort.close(function (err) {
 	    console.log('port closed', err);
+
+			db.remove({}, { multi: true }, function (err, numRemoved) {
+});
 			var serialContainer = document.getElementById('SerialPortList');
 			var discBtn = document.getElementById('discBtn');
 			var desc = document.getElementById('desctext');
@@ -155,7 +158,7 @@ function Disconnect() {
 function doFunction() {
 
 serialPort.close(function (err) {
-	db.find({}).sort({ number: 1, _id: 0 }).exec(function (err, docs) {
+	db.find({}).exec(function (err, docs) {
 	// docs is an array containing documents Mars, Earth, Jupiter
 	// If no document is found, docs is equal to []
 //this gets the numbers from the DB direct.
@@ -164,7 +167,7 @@ for(var i=0;i<keys.length;i++){
 		var key = keys[i];
 		powerARR.push(docs[key].number);
 		powerLabel.push(i);
-	//  console.log(powerARR);
+	 console.log(powerARR);
 	//  console.log(powerLabel);
 
 }
