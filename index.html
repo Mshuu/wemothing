@@ -155,13 +155,16 @@ function Disconnect() {
 			powerReading.style.display = 'none';
 			expBtn.style.display = 'none';
 
+			powerARR = [];
+			powerLabel = [];
+
 	});
 }
 function doFunction() {
 
 serialPort.close(function (err) {
 	db.find({}).exec(function (err, docs) {
-
+console.log(docs);
 	// docs is an array containing documents Mars, Earth, Jupiter
 	// If no document is found, docs is equal to []
 //this gets the numbers from the DB direct.
@@ -176,7 +179,7 @@ for(var i=0;i<keys.length;i++){
 
 content = powerARR;
 
-
+console.log(powerARR);
 console.log('port closed', err);
 db.remove({}, { multi: true }, function (err, numRemoved) {
 	db.persistence.compactDatafile();
@@ -187,8 +190,8 @@ var desc = document.getElementById('desctext');
 var powerReading = document.getElementById('PowerReading');
 var expBtn = document.getElementById('expBtn');
 
-
-
+powerARR = [];
+powerLabel = [];
 desc.innerText = "Select your serial port below";
 
 serialContainer.style.display = 'block';
