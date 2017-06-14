@@ -64,6 +64,12 @@ header {
 
 	display: none;
 }
+#progress {
+	display: none;
+	top: 50%;
+	left: 50%;
+	margin-top: 550px;
+}
 
 #expBtn {
 	position: absolute;
@@ -71,7 +77,7 @@ header {
 	height: 40px;
 	top: 50%;
 	left: 50%;
-	margin-top: 0px;
+	margin-top: 100px;
 	margin-left: -250px;
 	text-align: center;
 	display : none;

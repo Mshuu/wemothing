@@ -26,6 +26,13 @@
   <button type="button" width:"250px" class="btn btn-success btn-lg button" onclick="doFunction();">Export to File</a>
 </div>
 
+<div class="progress" id="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="0"
+  aria-valuemin="0" aria-valuemax="100" style="width:0%" id ="thebar">
+    0%
+  </div>
+</div>
+
 <div id = "PowerReading">
 	<p id="powerText">0</p>
 </div>
@@ -55,12 +62,14 @@ function UsePort(portName) {
 	var desc = document.getElementById('desctext');
 	var powerReading = document.getElementById('PowerReading');
 	var expBtn = document.getElementById('expBtn');
+	var progressBar = document.getElementById('progress');
 
 	desc.innerText = "Using: " + portName;
 	discBtn.style.display='block';
 	serialContainer.style.display = 'none';
 	powerReading.style.display=  'block';
 	expBtn.style.display = 'block';
+	progressBar.style.display = 'block';
 
 	ListenSerial(portName);
 
@@ -80,6 +89,21 @@ function ListenSerial(portName){
 	var powerText = document.getElementById('powerText');
 
 var SerialPort = serialport.SerialPort;
+powerText.style.fontSize = "12pt";
+powerText.innerText = "Loading first load of bytes, please wait...";
+var i = 0;
+
+var counterBack = setInterval(function(){
+i++;
+if(i<100){
+    document.getElementById("thebar").style.width = i+1+"%";
+    document.getElementById("thebar").innerHTML = i+1+"%";
+} else {
+   clearTimeout(counterBack);
+}
+
+}, 100);
+
 
 serialPort = new SerialPort(portName, {
   baudrate: 9600,
@@ -88,11 +112,16 @@ serialPort = new SerialPort(portName, {
 });
 
   serialPort.on('data', function(data) {
+
 		var hexstring = data.toString('hex');
 
 	//	powerText.innerText = data.toString('hex');
 
 	if ((hexstring.substr(0,4)) !=  "ae1e") {
+		powerText.style.fontSize = "12pt";
+		powerText.innerText = "Bytes not correct, please disconnect and try again";
+		document.getElementById("thebar").style.width = "0%";
+		document.getElementById("thebar").innerHTML = "0%";
 		console.log('Bytes did not match, please disconnect and try again.');
 
 
@@ -116,8 +145,20 @@ var intsave = parseInt(resmerge, 16);
 	}
 
 	// divide it by four
-
+powerText.style.fontSize = "32pt";
 	powerText.innerText = final;
+	var i = 0;
+
+	var counterBack = setInterval(function(){
+	i++;
+	if(i<100){
+	    document.getElementById("thebar").style.width = i+1+"%";
+	    document.getElementById("thebar").innerHTML = i+1+"%";
+	} else {
+	   clearTimeout(counterBack);
+	}
+
+	}, 100);
 
   var doc = { number: final};
 
@@ -145,6 +186,8 @@ function Disconnect() {
 			var desc = document.getElementById('desctext');
 			var powerReading = document.getElementById('PowerReading');
 			var expBtn = document.getElementById('expBtn');
+			var progressBar = document.getElementById('progress');
+
 
 
 
@@ -154,6 +197,7 @@ function Disconnect() {
 			discBtn.style.display = 'none';
 			powerReading.style.display = 'none';
 			expBtn.style.display = 'none';
+			progressBar.style.display = 'none';
 
 			powerARR = [];
 			powerLabel = [];
@@ -189,6 +233,8 @@ var discBtn = document.getElementById('discBtn');
 var desc = document.getElementById('desctext');
 var powerReading = document.getElementById('PowerReading');
 var expBtn = document.getElementById('expBtn');
+var progressBar = document.getElementById('progress');
+
 
 powerARR = [];
 powerLabel = [];
@@ -198,6 +244,7 @@ serialContainer.style.display = 'block';
 discBtn.style.display = 'none';
 powerReading.style.display = 'none';
 expBtn.style.display = 'none';
+progressBar.style.display = 'none';
 });
 });
 
