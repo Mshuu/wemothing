@@ -23,7 +23,7 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron-builder": "^18.1.0",
+    "electron-builder": "^18.8.1",
     "electron-prebuilt": "^1.4.13",
     "electron-rebuild": "^1.5.11"
   },
