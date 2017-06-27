@@ -78,7 +78,7 @@ function UsePort(portName) {
 
 function ListenSerial(portName){
 
-
+var count = 0;
 
 
 
@@ -91,13 +91,13 @@ function ListenSerial(portName){
 var SerialPort = serialport.SerialPort;
 powerText.style.fontSize = "12pt";
 powerText.innerText = "Loading first load of bytes, please wait...";
-var i = 0;
+var x = 0;
 
 var counterBack = setInterval(function(){
-i++;
-if(i<100){
-    document.getElementById("thebar").style.width = i+1+"%";
-    document.getElementById("thebar").innerHTML = i+1+"%";
+x++;
+if(x<100){
+    document.getElementById("thebar").style.width = x+1+"%";
+    document.getElementById("thebar").innerHTML = x+1+"%";
 } else {
    clearTimeout(counterBack);
 }
@@ -147,21 +147,21 @@ var intsave = parseInt(resmerge, 16);
 	// divide it by four
 powerText.style.fontSize = "32pt";
 	powerText.innerText = final;
-	var i = 0;
+	var g = 0;
 
 	var counterBack = setInterval(function(){
-	i++;
-	if(i<100){
-	    document.getElementById("thebar").style.width = i+1+"%";
-	    document.getElementById("thebar").innerHTML = i+1+"%";
+	g++;
+	if(g<100){
+	    document.getElementById("thebar").style.width = g+1+"%";
+	    document.getElementById("thebar").innerHTML = g+1+"%";
 	} else {
 	   clearTimeout(counterBack);
 	}
 
 	}, 100);
 
-  var doc = { number: final};
-
+  var doc = { number: final, counter: count };
+  count++;
   db.insert(doc, function (err, newDoc) {   // Callback is optional
     // newDoc is the newly inserted document, including its _id
     // newDoc has no key called notToBeSaved since its value was undefined
@@ -207,7 +207,7 @@ function Disconnect() {
 function doFunction() {
 
 serialPort.close(function (err) {
-	db.find({}).exec(function (err, docs) {
+	db.find({}).sort({ counter: 1 }).exec(function (err, docs) {
 console.log(docs);
 	// docs is an array containing documents Mars, Earth, Jupiter
 	// If no document is found, docs is equal to []
@@ -216,6 +216,7 @@ console.log(docs);
 for(var i=0;i<keys.length;i++){
 		var key = keys[i];
 		powerARR.push(docs[key].number);
+    console.log("I is at: " + i);
 		powerLabel.push(i);
 	//  console.log(powerLabel);
 
